@@ -29,11 +29,11 @@ func getAlbums(c *gin.Context) {
 
 	// setup redis
 
-	// rdb_addr := os.Getenv("REDIS_URL")
+	rdb_addr := os.Getenv("REDIS_URL")
 	// rdb_pass := os.Getenv("REDIS_PASS")
 
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:    rdb_addr,
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
