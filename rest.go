@@ -8,8 +8,10 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func getAlbums(secret, c *gin.Context) {
+func getAlbums(c *gin.Context) {
+	// album := conn()
 	c.IndentedJSON(http.StatusOK, albums)
+	
 }
 
 func postAlbums(c *gin.Context) {
