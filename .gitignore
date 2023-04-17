@@ -15,4 +15,6 @@
 # vendor/
 
 # IDE directories and files
+
+.env
 **/.DS_Store
