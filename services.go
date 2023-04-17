@@ -28,6 +28,10 @@ func getAlbums(c *gin.Context) {
 	db := bun.NewDB(sqldb, pgdialect.New())
 
 	// setup redis
+
+	// rdb_addr := os.Getenv("REDIS_URL")
+	// rdb_pass := os.Getenv("REDIS_PASS")
+
 	rdb := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "", // no password set
@@ -36,12 +40,17 @@ func getAlbums(c *gin.Context) {
 
 	if err := rdb.Set(ctx, "key", "value", 0).Err() ; err != nil { panic(err) }
 
+	val, err := rdb.Get(ctx, "key").Result()
+	if err != nil { panic(err) }
+
+	fmt.Println("key: ", val)
+
 	album := new(album)
 	if err := db.NewSelect().Model(album).Where("id = ?", 1).Scan(ctx); err != nil { panic(err) }
 
 	fmt.Printf("album: %#v", album)
 
-	c.IndentedJSON(http.StatusOK, album)
+	c.IndentedJSON(http.StatusOK, val)
 	
 }
 
